@@ -3,22 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Interfaz;
+
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
+
 /**
  *
  * @author mauri
  */
 public class Inicio extends javax.swing.JFrame {
-    
+
     /**
      * Creates new form Inicio
      */
-
     public Inicio() {
         initComponents();
         pnlCerrar.setEnabled(false);
-        
+        JPanel pnlInicioSesion = new pnlInicioSesion();
+        agregarPanelDerecho(pnlInicioSesion);
+
     }
 
     /**
@@ -31,13 +34,10 @@ public class Inicio extends javax.swing.JFrame {
     private void initComponents() {
 
         pnlDerecho = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        pnlIniciar = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         pnlCerrar = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        pnlIniciar1 = new javax.swing.JPanel();
+        pnlEmpleados = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         pnlIniciar2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -51,53 +51,24 @@ public class Inicio extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
         setFocusTraversalPolicyProvider(true);
 
+        pnlDerecho.setBackground(new java.awt.Color(255, 255, 255));
         pnlDerecho.setPreferredSize(new java.awt.Dimension(590, 400));
-
-        jLabel1.setText("EjeCorp");
 
         javax.swing.GroupLayout pnlDerechoLayout = new javax.swing.GroupLayout(pnlDerecho);
         pnlDerecho.setLayout(pnlDerechoLayout);
         pnlDerechoLayout.setHorizontalGroup(
             pnlDerechoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlDerechoLayout.createSequentialGroup()
-                .addGap(270, 270, 270)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(154, Short.MAX_VALUE))
+            .addGap(0, 590, Short.MAX_VALUE)
         );
         pnlDerechoLayout.setVerticalGroup(
             pnlDerechoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlDerechoLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel1)
-                .addContainerGap(363, Short.MAX_VALUE))
+            .addGap(0, 400, Short.MAX_VALUE)
         );
 
-        pnlIniciar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pnlIniciarMouseClicked(evt);
-            }
-        });
-
-        jLabel2.setText("Iniciar sesión");
-
-        javax.swing.GroupLayout pnlIniciarLayout = new javax.swing.GroupLayout(pnlIniciar);
-        pnlIniciar.setLayout(pnlIniciarLayout);
-        pnlIniciarLayout.setHorizontalGroup(
-            pnlIniciarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlIniciarLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
-        );
-        pnlIniciarLayout.setVerticalGroup(
-            pnlIniciarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlIniciarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         pnlCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -124,26 +95,26 @@ public class Inicio extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        pnlIniciar1.addMouseListener(new java.awt.event.MouseAdapter() {
+        pnlEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pnlIniciar1MouseClicked(evt);
+                pnlEmpleadosMouseClicked(evt);
             }
         });
 
         jLabel4.setText("Empleados");
 
-        javax.swing.GroupLayout pnlIniciar1Layout = new javax.swing.GroupLayout(pnlIniciar1);
-        pnlIniciar1.setLayout(pnlIniciar1Layout);
-        pnlIniciar1Layout.setHorizontalGroup(
-            pnlIniciar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlIniciar1Layout.createSequentialGroup()
-                .addGap(61, 61, 61)
+        javax.swing.GroupLayout pnlEmpleadosLayout = new javax.swing.GroupLayout(pnlEmpleados);
+        pnlEmpleados.setLayout(pnlEmpleadosLayout);
+        pnlEmpleadosLayout.setHorizontalGroup(
+            pnlEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEmpleadosLayout.createSequentialGroup()
+                .addGap(53, 53, 53)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        pnlIniciar1Layout.setVerticalGroup(
-            pnlIniciar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlIniciar1Layout.createSequentialGroup()
+        pnlEmpleadosLayout.setVerticalGroup(
+            pnlEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEmpleadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -155,16 +126,16 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("Iniciar");
+        jLabel5.setText("Sucursales");
 
         javax.swing.GroupLayout pnlIniciar2Layout = new javax.swing.GroupLayout(pnlIniciar2);
         pnlIniciar2.setLayout(pnlIniciar2Layout);
         pnlIniciar2Layout.setHorizontalGroup(
             pnlIniciar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlIniciar2Layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(76, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlIniciar2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
         );
         pnlIniciar2Layout.setVerticalGroup(
             pnlIniciar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,16 +151,16 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Iniciar");
+        jLabel6.setText("Proveedores");
 
         javax.swing.GroupLayout pnlIniciar3Layout = new javax.swing.GroupLayout(pnlIniciar3);
         pnlIniciar3.setLayout(pnlIniciar3Layout);
         pnlIniciar3Layout.setHorizontalGroup(
             pnlIniciar3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlIniciar3Layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addGap(47, 47, 47)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlIniciar3Layout.setVerticalGroup(
             pnlIniciar3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,16 +176,16 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setText("Iniciar");
+        jLabel7.setText("Productos");
 
         javax.swing.GroupLayout pnlIniciar4Layout = new javax.swing.GroupLayout(pnlIniciar4);
         pnlIniciar4.setLayout(pnlIniciar4Layout);
         pnlIniciar4Layout.setHorizontalGroup(
             pnlIniciar4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlIniciar4Layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addComponent(jLabel7)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlIniciar4Layout.setVerticalGroup(
             pnlIniciar4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,16 +201,16 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setText("Iniciar");
+        jLabel8.setText("Clientes");
 
         javax.swing.GroupLayout pnlIniciar5Layout = new javax.swing.GroupLayout(pnlIniciar5);
         pnlIniciar5.setLayout(pnlIniciar5Layout);
         pnlIniciar5Layout.setHorizontalGroup(
             pnlIniciar5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlIniciar5Layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlIniciar5Layout.setVerticalGroup(
             pnlIniciar5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -281,9 +252,8 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlIniciar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlIniciar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlEmpleados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlIniciar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlIniciar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlIniciar4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -294,10 +264,8 @@ public class Inicio extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnlIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pnlIniciar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addComponent(pnlEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(pnlIniciar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -308,7 +276,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addComponent(pnlIniciar5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlIniciar6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addComponent(pnlCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -337,20 +305,17 @@ public class Inicio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void pnlIniciarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlIniciarMouseClicked
-        // TODO add your handling code here:
-        JPanel pnlInicioSesion = new pnlInicioSesion();
-        agregarPanelDerecho(pnlInicioSesion);
-    }//GEN-LAST:event_pnlIniciarMouseClicked
-
     private void pnlCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlCerrarMouseClicked
         // TODO add your handling code here:
         System.out.println("cerrar");
+
     }//GEN-LAST:event_pnlCerrarMouseClicked
 
-    private void pnlIniciar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlIniciar1MouseClicked
+    private void pnlEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlEmpleadosMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_pnlIniciar1MouseClicked
+        JPanel PnlEmpleados = new PnlEmpleados();
+        agregarPanelDerecho(PnlEmpleados);
+    }//GEN-LAST:event_pnlEmpleadosMouseClicked
 
     private void pnlIniciar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlIniciar2MouseClicked
         // TODO add your handling code here:
@@ -371,7 +336,7 @@ public class Inicio extends javax.swing.JFrame {
     private void pnlIniciar6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlIniciar6MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_pnlIniciar6MouseClicked
-   public static void agregarPanelDerecho(JPanel pnl) {
+    public static void agregarPanelDerecho(JPanel pnl) {
         //ajustamos el tamaño
         pnl.setSize(590, 400);
         //colocamos, la esquina superior izquierda posee coordenadas (0,0)
@@ -384,6 +349,7 @@ public class Inicio extends javax.swing.JFrame {
         pnlDerecho.revalidate();
         pnlDerecho.repaint();
     }
+
     /**
      * @param args the command line arguments
      */
@@ -418,10 +384,8 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -432,8 +396,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     public static javax.swing.JPanel pnlCerrar;
     public static javax.swing.JPanel pnlDerecho;
-    private javax.swing.JPanel pnlIniciar;
-    private javax.swing.JPanel pnlIniciar1;
+    private javax.swing.JPanel pnlEmpleados;
     private javax.swing.JPanel pnlIniciar2;
     private javax.swing.JPanel pnlIniciar3;
     private javax.swing.JPanel pnlIniciar4;

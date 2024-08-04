@@ -47,6 +47,23 @@ public class Conexion {
         }
         return conn;
     }
+    
+        public Connection getConnSin() {
+        try {
+            Class.forName("oracle.jdbc.OracleDriver");
+            conn = DriverManager.getConnection(this.url, this.user, this.pass);
+            conn.setAutoCommit(true);
+            if (conn != null) {
+                System.out.println("Conexion");
+
+            } else {
+                System.out.println("error");
+            }
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+        return conn;
+    }
 
     public void desconectar() {
         try {
