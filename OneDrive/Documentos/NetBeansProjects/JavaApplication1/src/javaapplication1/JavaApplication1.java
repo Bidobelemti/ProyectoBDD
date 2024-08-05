@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package javaapplication1;
-import BD.Conexion;
+import Modelo.Conexion;
 
 /**
  *
@@ -22,7 +22,7 @@ public class JavaApplication1 {
             
             Conexion conn = new Conexion( user, pass);
             String pruebaSQL = "SELECT * FROM prueba@pruebaconexion";
-            BD.Conexion.pruebacon(conn.getConn(), pruebaSQL);
+            Modelo.Conexion.pruebacon(conn.getConn(), pruebaSQL);
             //pst = conn.prepareStatement(pruebaSQL);
         } catch(Exception e){
             System.out.println(e);

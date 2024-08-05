@@ -2,10 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package Interfaz;
+package Vista;
 
-import BD.Conexion;
-import static Interfaz.Inicio.pnlDerecho;
+import Modelo.Conexion;
 import java.awt.BorderLayout;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -87,7 +86,7 @@ public class PnlEmpleados extends javax.swing.JPanel {
         try {
             cmb.removeAllItems();
             cmb.addItem("  ");
-            String comando = "SELECT numerosucur FROM sucursal";
+            String comando = "SELECT numerosucur FROM todas_sucursales";
             PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
@@ -361,7 +360,7 @@ public class PnlEmpleados extends javax.swing.JPanel {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-
+        estado = true;
         int index = tblEmpleados.getSelectedRow();
 
         if (index == -1) {

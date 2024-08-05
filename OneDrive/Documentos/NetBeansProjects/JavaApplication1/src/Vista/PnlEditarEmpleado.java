@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package Interfaz;
+package Vista;
 
-import static Interfaz.PnlEmpleados.registro;
+import static Vista.PnlEmpleados.registro;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,6 +26,7 @@ public class PnlEditarEmpleado extends javax.swing.JPanel {
         initComponents();
         PnlEmpleados.llenarCmb(cmbSucursalEmp);
         seleccionarCmb();
+        System.out.println(PnlEmpleados.estado + " f para ed y T para cr");
     }
 
     private void seleccionarCmb() {
@@ -196,6 +197,7 @@ public class PnlEditarEmpleado extends javax.swing.JPanel {
         // TODO add your handling code here:
         // se va a actualizar
         if (PnlEmpleados.estado) {
+            
             try {
                 System.out.println(PnlEmpleados.estado);
 
@@ -230,8 +232,8 @@ public class PnlEditarEmpleado extends javax.swing.JPanel {
 
                     pst.executeUpdate();
                     pst2.executeUpdate();
-                    System.out.println("Empleado insertado exitosamente.");
-                    JOptionPane.showMessageDialog(null, "Empleado insertado exitosamente", "Transacción exitosa",
+                    System.out.println("Empleado actualizado exitosamente.");
+                    JOptionPane.showMessageDialog(null, "Empleado actualizado exitosamente", "Transacción exitosa",
                             JOptionPane.INFORMATION_MESSAGE);
                     JPanel pnlTabla = new PnlEmpleados();
                     Inicio.agregarPanelDerecho(pnlTabla);
