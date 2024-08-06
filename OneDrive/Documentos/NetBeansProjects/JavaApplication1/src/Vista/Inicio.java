@@ -41,8 +41,6 @@ public class Inicio extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         pnlSucursales = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        pnlProveedores = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
         pnlProductos = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         pnlClientes = new javax.swing.JPanel();
@@ -150,33 +148,6 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(pnlSucursalesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-
-        pnlProveedores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pnlProveedores.setPreferredSize(new java.awt.Dimension(129, 40));
-        pnlProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pnlProveedoresMouseClicked(evt);
-            }
-        });
-
-        jLabel6.setText("Proveedores");
-
-        javax.swing.GroupLayout pnlProveedoresLayout = new javax.swing.GroupLayout(pnlProveedores);
-        pnlProveedores.setLayout(pnlProveedoresLayout);
-        pnlProveedoresLayout.setHorizontalGroup(
-            pnlProveedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlProveedoresLayout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addComponent(jLabel6)
-                .addContainerGap(55, Short.MAX_VALUE))
-        );
-        pnlProveedoresLayout.setVerticalGroup(
-            pnlProveedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlProveedoresLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -301,14 +272,13 @@ public class Inicio extends javax.swing.JFrame {
                     .addComponent(pnlFabrica, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                     .addComponent(pnlEmpleados, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                     .addComponent(pnlSucursales, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlProveedores, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                     .addComponent(pnlProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                     .addComponent(pnlClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                     .addComponent(pnlAuditoria, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 50, Short.MAX_VALUE))
                     .addComponent(pnlCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -322,16 +292,14 @@ public class Inicio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlSucursales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlFabrica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(pnlAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(pnlCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -362,7 +330,8 @@ public class Inicio extends javax.swing.JFrame {
 
     private void pnlFabricaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlFabricaMouseClicked
         // TODO add your handling code here:
-        
+        JPanel fabrica = new pnlFabrica();
+        agregarPanelDerecho(fabrica);
 
     }//GEN-LAST:event_pnlFabricaMouseClicked
 
@@ -377,10 +346,6 @@ public class Inicio extends javax.swing.JFrame {
         JPanel PnlSucursales = new pnlSucursales();
         agregarPanelDerecho(PnlSucursales);
     }//GEN-LAST:event_pnlSucursalesMouseClicked
-
-    private void pnlProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlProveedoresMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pnlProveedoresMouseClicked
 
     private void pnlProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlProductosMouseClicked
         // TODO add your handling code here:
@@ -454,7 +419,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -466,7 +430,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel pnlEmpleados;
     public static javax.swing.JPanel pnlFabrica;
     private javax.swing.JPanel pnlProductos;
-    private javax.swing.JPanel pnlProveedores;
     private javax.swing.JPanel pnlSucursales;
     // End of variables declaration//GEN-END:variables
 }
