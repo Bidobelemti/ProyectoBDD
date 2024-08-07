@@ -44,6 +44,7 @@ public class PnlEmpleados extends javax.swing.JPanel {
         tblEmpleados.setModel(dtm);
         LlenarTabla("SELECT * FROM empleado");
         llenarCmb(cmbSucursales);
+        System.out.println(pnlInicioSesion.usuario);
     }
 
     /**

@@ -5,6 +5,7 @@
 package Vista;
 
 import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -161,9 +162,9 @@ public class PnlEditarSucursales extends javax.swing.JPanel {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         if (pnlSucursales.estado) {
-            System.out.println("editar "+pnlSucursales.estado);
+            System.out.println("editar " + pnlSucursales.estado);
             try {
-                String numeroSucu = txtNumeroSuc.getText().trim();
+                int numeroSucu = Integer.parseInt(txtNumeroSuc.getText().trim());
                 String direccion = txtDireccion.getText();
                 String ciudad = "";
                 if (rbtGuayaquil.isSelected()) {
@@ -171,17 +172,46 @@ public class PnlEditarSucursales extends javax.swing.JPanel {
                 } else {
                     ciudad = "QUITO";
                 }
-                String comando = " ";
+                String comando = "UPDATE sucursal SET "
+                        + "domiciliosucur = ?, "
+                        + "ciudadsucur = ? "
+                        + "WHERE numerosucur = ?";
                 PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
-                if(!numeroSucu.isBlank() && !direccion.isBlank() ){
-                    pst.setString(1, numeroSucu);
-                }
-                
+                pst.setInt(3, numeroSucu);
+                pst.setString(1, direccion);
+                pst.setString(2, ciudad);
+                System.out.println(pst.executeUpdate());
+                JOptionPane.showMessageDialog(null, "Actualizado exitosamente", "Transacción exitosa",
+                        JOptionPane.INFORMATION_MESSAGE);
+                JPanel pnlTabla = new pnlSucursales();
+                Inicio.agregarPanelDerecho(pnlTabla);
             } catch (Exception e) {
                 System.out.println(e);
             }
-        }else{
-            
+        } else {
+            try {
+                String numeroSucu = txtNumeroSuc.getText();
+                String direccion = txtDireccion.getText();
+                String ciudad = "";
+                if (rbtGuayaquil.isSelected()) {
+                    ciudad = "GUAYAQUIL";
+                } else {
+                    ciudad = "QUITO";
+                }
+                String comando = "INSERT INTO sucursal "
+                        + "VALUES(?,?,?)";
+                PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
+                pst.setString(1, numeroSucu);
+                pst.setString(2, direccion);
+                pst.setString(3, ciudad);
+                System.out.println(pst.executeUpdate());
+                JOptionPane.showMessageDialog(null, "Insertado exitosamente", "Transacción exitosa",
+                        JOptionPane.INFORMATION_MESSAGE);
+                JPanel pnlTabla = new pnlSucursales();
+                Inicio.agregarPanelDerecho(pnlTabla);
+            } catch (Exception e) {
+
+            }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 

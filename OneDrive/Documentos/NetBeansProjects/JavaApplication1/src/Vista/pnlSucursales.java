@@ -38,6 +38,7 @@ public class pnlSucursales extends javax.swing.JPanel {
         dtm.addColumn("CIUDAD");
         tblSucursales.setModel(dtm);
         LlenarTabla("SELECT * FROM todas_sucursales");
+        System.out.println(pnlInicioSesion.usuario);
     }
 
     private void LlenarTabla(String comando) {
@@ -227,7 +228,7 @@ public class pnlSucursales extends javax.swing.JPanel {
             comando = "SELECT * FROM todas_sucursales";
         }
         if (index == 1) {
-            comando = "SELECT * FROM todas_sucursales WHERE ciudadsucur = 'QUITO'";
+            comando = "SELECT * FROM sucursal";
         }
         if (index == 2) {
             comando = "SELECT * FROM todas_sucursales WHERE ciudadsucur = 'GUAYAQUIL'";
@@ -254,7 +255,7 @@ public class pnlSucursales extends javax.swing.JPanel {
                     PnlEditarSucursales.txtDireccion.setText(rs.getString(2));
                     ciudad = rs.getString(3);
                 }
-                if (ciudad.toUpperCase().equals("QUITO")) {
+                if (ciudad.toUpperCase().trim().equals("QUITO")) {
                     PnlEditarSucursales.rbtQuito.setSelected(true);
                 } else {
                     PnlEditarSucursales.rbtGuayaquil.setSelected(true);

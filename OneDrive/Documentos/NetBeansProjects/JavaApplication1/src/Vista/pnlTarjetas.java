@@ -39,7 +39,15 @@ public class pnlTarjetas extends javax.swing.JPanel {
         dtm.addColumn("CODIGO");
         dtm.addColumn("VENCIMIENTO");
         tblTarjetas.setModel(dtm);
-        LlenarTabla("SELECT * FROM tarjeta");
+        if (pnlInicioSesion.usuario.equals("roberth")) {
+            LlenarTabla("SELECT * FROM tarjeta");
+        } else {
+            LlenarTabla("SELECT * FROM vwtarjeta");
+            btnEditar.setEnabled(false);
+            btnEliminar.setEnabled(false);
+            btnNuevo.setEnabled(false);
+        }
+        System.out.println(pnlInicioSesion.usuario);
     }
 
     private void LlenarTabla(String comando) {
@@ -222,11 +230,11 @@ public class pnlTarjetas extends javax.swing.JPanel {
         try {
             // TODO add your handling code here:
             int index = tblTarjetas.getSelectedRow();
-            
+
             String cmd = "DELETE FROM tarjeta WHERE numerotarjeta = ?";
             PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(cmd);
             registro = (Vector) dtm.getDataVector().elementAt(index);
-            
+
             pst.setString(1, registro.elementAt(0).toString());
             pst.executeUpdate();
 

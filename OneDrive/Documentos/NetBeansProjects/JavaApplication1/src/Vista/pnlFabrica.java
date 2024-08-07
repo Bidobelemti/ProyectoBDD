@@ -41,8 +41,17 @@ public class pnlFabrica extends javax.swing.JPanel {
         dtm.addColumn("PAIS");
         dtm.addColumn("GERENTE");
         tblFarbicas.setModel(dtm);
-        LlenarTabla("SELECT * FROM fabrica");
+
         llenarCmb(cmbPaises);
+        System.out.println(pnlInicioSesion.usuario);
+        if (pnlInicioSesion.usuario.equals("mauricio")) {
+            btnEditar.setEnabled(false);
+            btnEliminar.setEnabled(false);
+            btnNuevo.setEnabled(false);
+            LlenarTabla("SELECT * FROM vwfabrica");
+        } else {
+            LlenarTabla("SELECT * FROM fabrica");
+        }
     }
 
     private void LlenarTabla(String comando) {
@@ -76,7 +85,12 @@ public class pnlFabrica extends javax.swing.JPanel {
         try {
             cmb.removeAllItems();
             cmb.addItem("  ");
-            String comando = "SELECT DISTINCT paisfabrica FROM fabrica";
+            String comando = "";
+            if (pnlInicioSesion.usuario.equals("mauricio")) {
+                comando = "SELECT DISTINCT paisfabrica FROM vwfabrica";
+            } else {
+                comando = "SELECT DISTINCT paisfabrica FROM fabrica";
+            }
             PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
@@ -129,6 +143,7 @@ public class pnlFabrica extends javax.swing.JPanel {
         });
 
         btnBuscar.setText("Buscar");
+        btnBuscar.setEnabled(false);
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -241,20 +256,6 @@ public class pnlFabrica extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-        limpiarTabla();
-        String comando = "";
-        int index = cmbPaises.getSelectedIndex();
-        String pais = cmbPaises.getSelectedItem().toString();
-        System.out.println(pais);
-        comando = "SELECT * FROM fabrica where paisfabrica = '" + pais + "'";
-        if (index == 0) {
-            comando = "SELECT * FROM fabrica";
-        }
-        LlenarTabla(comando);
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
         estado = true;
@@ -328,6 +329,20 @@ public class pnlFabrica extends javax.swing.JPanel {
     private void tblFarbicasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFarbicasMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_tblFarbicasMouseClicked
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        limpiarTabla();
+        String comando = "";
+        int index = cmbPaises.getSelectedIndex();
+        String pais = cmbPaises.getSelectedItem().toString();
+        System.out.println(pais);
+        comando = "SELECT * FROM fabrica where paisfabrica = '" + pais + "'";
+        if (index == 0) {
+            comando = "SELECT * FROM fabrica";
+        }
+        LlenarTabla(comando);
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void agregarPanel(JPanel pnl) {
         //ajustamos el tamaño

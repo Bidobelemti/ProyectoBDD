@@ -20,6 +20,8 @@ public class pnlInicioSesion extends javax.swing.JPanel {
         initComponents();
     }
 
+    public static String usuario;
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -136,9 +138,12 @@ public class pnlInicioSesion extends javax.swing.JPanel {
             conn = new Conexion(user, pass);
             conn.getConn();
             System.out.println(conn);
+            usuario = user;
         } catch (Exception e) {
             System.out.println(e);
         }
+        
+        
     }//GEN-LAST:event_btnConectarActionPerformed
 
 

@@ -5,7 +5,6 @@
 package Vista;
 
 import Modelo.Conexion;
-
 import java.awt.BorderLayout;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
@@ -14,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -21,33 +21,32 @@ import javax.swing.JPanel;
  *
  * @author mauri
  */
-public class pnlClientes extends javax.swing.JPanel {
+public class pnlProductos extends javax.swing.JPanel {
 
     /**
      * Creates new form pnlInicioSesion
      */
     private DefaultTableModel dtm;
-    private Object[] obj = new Object[6];
+    private Object[] obj = new Object[5];
     public static boolean estado = true;
     public static Vector registro;
 
-    public pnlClientes() {
+    public pnlProductos() {
         initComponents();
         dtm = new DefaultTableModel();
         dtm.addColumn("ID");
-        dtm.addColumn("SUCURSAL");
-        dtm.addColumn("NOMBRE");
-        dtm.addColumn("CIUDAD");
-        dtm.addColumn("NACIMIENTO");
-        dtm.addColumn("CEDULA");
-        tblClientes.setModel(dtm);
+        dtm.addColumn("PROVEEDOR");
+        dtm.addColumn("DESCRIPCION");
+        dtm.addColumn("COSTO");
+        tblProductos.setModel(dtm);
         if (pnlInicioSesion.usuario.equals("roberth")) {
-            LlenarTabla("SELECT * FROM cliente");
+            LlenarTabla("SELECT p.CODIGOPRODUCTO, f.NOMBREFABRICA, p.DESCRIPCIONPRODUCTO, p.COLORPRODUCTO, p.COSTOPRODUCTO FROM PRODUCTO p JOIN FABRICA f ON p.RUCFABRICA = f.RUCFABRICA");
         } else {
-            LlenarTabla("SELECT * FROM cliente_sur");
-            System.out.println("surrrr");
+            LlenarTabla("SELECT p.CODIGOPRODUCTO, f.NOMBREFABRICA, p.DESCRIPCIONPRODUCTO, p.COLORPRODUCTO, p.COSTOPRODUCTO FROM VWPRODUCTO p JOIN VWFABRICA f ON p.RUCFABRICA = f.RUCFABRICA");
+            btnEditar.setEnabled(false);
+            btnEliminar.setEnabled(false);
+            btnNuevo.setEnabled(false);
         }
-
         System.out.println(pnlInicioSesion.usuario);
     }
 
@@ -61,7 +60,6 @@ public class pnlClientes extends javax.swing.JPanel {
                 obj[2] = rs.getString(3);
                 obj[3] = rs.getString(4);
                 obj[4] = rs.getString(5);
-                obj[5] = rs.getString(6);
                 dtm.addRow(obj);
             }
             pst.execute();
@@ -80,6 +78,23 @@ public class pnlClientes extends javax.swing.JPanel {
         }
     }
 
+    static public void llenarCmb(JComboBox cmb) {
+        try {
+            cmb.removeAllItems();
+            cmb.addItem("  ");
+            String comando = "SELECT nombrefabrica FROM fabrica";
+            PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                String ID = rs.getString(1);
+                cmb.addItem(ID);
+            }
+            pst.execute();
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(Conexion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -92,9 +107,9 @@ public class pnlClientes extends javax.swing.JPanel {
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
-        pnlSucursal = new javax.swing.JPanel();
+        pnlProductos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblClientes = new javax.swing.JTable();
+        tblProductos = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(590, 388));
@@ -120,7 +135,7 @@ public class pnlClientes extends javax.swing.JPanel {
             }
         });
 
-        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -131,27 +146,27 @@ public class pnlClientes extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblClientes.setToolTipText("");
-        tblClientes.setDragEnabled(true);
-        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblProductos.setToolTipText("");
+        tblProductos.setDragEnabled(true);
+        tblProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblClientesMouseClicked(evt);
+                tblProductosMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblClientes);
+        jScrollPane1.setViewportView(tblProductos);
 
-        javax.swing.GroupLayout pnlSucursalLayout = new javax.swing.GroupLayout(pnlSucursal);
-        pnlSucursal.setLayout(pnlSucursalLayout);
-        pnlSucursalLayout.setHorizontalGroup(
-            pnlSucursalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlSucursalLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlProductosLayout = new javax.swing.GroupLayout(pnlProductos);
+        pnlProductos.setLayout(pnlProductosLayout);
+        pnlProductosLayout.setHorizontalGroup(
+            pnlProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlProductosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        pnlSucursalLayout.setVerticalGroup(
-            pnlSucursalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlSucursalLayout.createSequentialGroup()
+        pnlProductosLayout.setVerticalGroup(
+            pnlProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlProductosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
                 .addContainerGap())
@@ -168,17 +183,17 @@ public class pnlClientes extends javax.swing.JPanel {
                         .addComponent(btnEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnEliminar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(btnNuevo)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(pnlSucursal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnlProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlSucursal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar)
@@ -191,38 +206,27 @@ public class pnlClientes extends javax.swing.JPanel {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
         estado = true;
-        int index = tblClientes.getSelectedRow();
-        registro = (Vector) dtm.getDataVector().elementAt(index);
-        JPanel pnlEditar = new PnlEditarCliente();
-        PnlEditarCliente.txtID.setEditable(false);
-
+        JPanel pnlEditar = new PnlEditarProductos();
+        int index = tblProductos.getSelectedRow();
         if (index != -1) {
             try {
 
-                String comando = "SELECT * FROM cliente WHERE codigocliente = '" + registro.elementAt(0).toString() + "'";
-                String ciudad = "";
-                String sucursal = "";
-                String cmd = "SELECT s.numerosucur from cliente c"
-                        + " JOIN sucursal s ON c.numerosucur = s.numerosucur "
-                        + "WHERE c.codigocliente = '" + registro.elementAt(0).toString() + "'";
-
+                registro = (Vector) dtm.getDataVector().elementAt(index);
+                String comando = "SELECT * FROM producto WHERE codigoprodcuto = " + registro.elementAt(0).toString();
                 PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
                 ResultSet rs = pst.executeQuery();
-
+                String ciudad = "";
                 while (rs.next()) {
-                    PnlEditarCliente.txtID.setText(rs.getString(1));
-                    PnlEditarCliente.txtNombre.setText(rs.getString(3));
-                    PnlEditarCliente.txtCedula.setText(rs.getString(6));
-                    ciudad = rs.getString(4);
+                    PnlEditarSucursales.txtNumeroSuc.setText(rs.getString(1));
+                    PnlEditarSucursales.txtDireccion.setText(rs.getString(2));
+                    ciudad = rs.getString(3);
                 }
-                if (ciudad.toUpperCase().trim().equals("QUITO") && pnlInicioSesion.usuario.equals("roberth")) {
-                    System.out.println(ciudad + " imprimir ciudad");
-
-                    PnlEditarCliente.rbtQuito.setSelected(true);
-                    PnlEditarCliente.rbtGuayaquil.setEnabled(false);
-
-                    System.out.println(ciudad + " imprimir ciudad");
+                if (ciudad.toUpperCase().equals("QUITO")) {
+                    PnlEditarSucursales.rbtQuito.setSelected(true);
+                } else {
+                    PnlEditarSucursales.rbtGuayaquil.setSelected(true);
                 }
+
             } catch (Exception e) {
                 System.out.println(e);
             }
@@ -236,56 +240,19 @@ public class pnlClientes extends javax.swing.JPanel {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        try {
-            int index = tblClientes.getSelectedRow();
-            registro = (Vector) dtm.getDataVector().elementAt(index);
-            if (registro.elementAt(3).toString().equals("QUITO") && pnlInicioSesion.usuario.equals("roberth")) {
-                // TODO add your handling code here:
-
-                String cmd = "DELETE FROM tarjeta WHERE codigocliente = ?";
-                PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(cmd);
-
-                pst.setString(1, registro.elementAt(0).toString());
-                String comando = "DELETE FROM cliente_norte WHERE codigocliente = ?";
-                PreparedStatement pst2 = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
-                pst2.setString(1, registro.elementAt(0).toString());
-                pst.executeUpdate();
-                pst2.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Eliminado exitosamente", "Transacción exitosa",
-                        JOptionPane.INFORMATION_MESSAGE);
-                limpiarTabla();
-            } else {
-                String cmd = "DELETE FROM tarjeta WHERE codigocliente = ?";
-                PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(cmd);
-
-                pst.setString(1, registro.elementAt(0).toString());
-                String comando = "DELETE FROM cliente_sur WHERE codigocliente = ?";
-                PreparedStatement pst2 = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
-                pst2.setString(1, registro.elementAt(0).toString());
-                pst.executeUpdate();
-                pst2.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Eliminado exitosamente", "Transacción exitosa",
-                        JOptionPane.INFORMATION_MESSAGE);
-                limpiarTabla();
-            }
-        } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(PnlEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        LlenarTabla("SELECT * FROM cliente");
-        System.out.println("Finalizado");
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
         estado = false;
-        JPanel pnlEditar = new PnlEditarCliente();
+        JPanel pnlEditar = new PnlEditarProductos();
         Inicio.agregarPanelDerecho(pnlEditar);
 
     }//GEN-LAST:event_btnNuevoActionPerformed
 
-    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
+    private void tblProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductosMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_tblClientesMouseClicked
+    }//GEN-LAST:event_tblProductosMouseClicked
 
     private void agregarPanel(JPanel pnl) {
         //ajustamos el tamaño
@@ -293,22 +260,21 @@ public class pnlClientes extends javax.swing.JPanel {
         //colocamos, la esquina superior izquierda posee coordenadas (0,0)
         pnl.setLocation(0, 0);
         //remueve lo del panel inicio
-        pnlSucursal.removeAll();
+        pnlProductos.removeAll();
         //en el panel inicio agregue el panel clientes con una ubicación
-        pnlSucursal.add(pnl, BorderLayout.CENTER);
+        pnlProductos.add(pnl, BorderLayout.CENTER);
         //elimina toda la jerarquia y la construye nuevamente
         System.out.println("revalidate");
-        pnlSucursal.revalidate();
-        pnlSucursal.repaint();
+        pnlProductos.revalidate();
+        pnlProductos.repaint();
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JScrollPane jScrollPane1;
-    public static javax.swing.JPanel pnlSucursal;
-    private javax.swing.JTable tblClientes;
+    public static javax.swing.JPanel pnlProductos;
+    private javax.swing.JTable tblProductos;
     // End of variables declaration//GEN-END:variables
 }
