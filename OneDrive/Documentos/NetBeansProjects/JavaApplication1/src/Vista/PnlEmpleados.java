@@ -42,9 +42,17 @@ public class PnlEmpleados extends javax.swing.JPanel {
         dtm.addColumn("TELEFONO");
         dtm.addColumn("DIRECCION");
         tblEmpleados.setModel(dtm);
-        LlenarTabla("SELECT * FROM empleado");
+        if (pnlInicioSesion.usuario.equals("roberth")) {
+            LlenarTabla("SELECT * FROM empleado_norte");
+
+        } else {
+            LlenarTabla("SELECT * FROM empleado_sur");
+
+        }
         llenarCmb(cmbSucursales);
         System.out.println(pnlInicioSesion.usuario);
+        btnBuscar.setEnabled(false);
+        cmbSucursales.setEnabled(false);
     }
 
     /**
@@ -87,7 +95,13 @@ public class PnlEmpleados extends javax.swing.JPanel {
         try {
             cmb.removeAllItems();
             cmb.addItem("  ");
-            String comando = "SELECT numerosucur FROM todas_sucursales";
+            String comando = "";
+            if (pnlInicioSesion.usuario.equals("roberth")) {
+                comando = "SELECT numerosucur FROM sucursal_norte";
+            } else {
+                comando = "SELECT numerosucur FROM sucursal_sur";
+            }
+
             PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
@@ -157,6 +171,8 @@ public class PnlEmpleados extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
         );
+
+        jPanel1.setEnabled(false);
 
         jLabel1.setText("Nombre");
 
@@ -371,7 +387,14 @@ public class PnlEmpleados extends javax.swing.JPanel {
                 registro = (Vector) dtm.getDataVector().elementAt(index);
                 System.out.println(registro.elementAt(0).toString());
                 JPanel pnlEditar = new PnlEditarEmpleado();
-                String comando = "SELECT * FROM empleado WHERE idempleado = '" + registro.elementAt(0).toString() + "'";
+                String comando = "";
+                if (pnlInicioSesion.usuario.equals("roberth")) {
+                    comando = "SELECT * FROM empleado_norte WHERE idempleado = '" + registro.elementAt(0).toString() + "'";
+
+                } else {
+                    comando = "SELECT * FROM empleado_sur WHERE idempleado = '" + registro.elementAt(0).toString() + "'";
+
+                }
                 PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
                 ResultSet rs = pst.executeQuery();
                 PnlEditarEmpleado.txtIDEmp.setEditable(false);
@@ -401,12 +424,20 @@ public class PnlEmpleados extends javax.swing.JPanel {
         try {
             // TODO add your handling code here:
             int index = tblEmpleados.getSelectedRow();
-            String cmd = "DELETE FROM trabaja WHERE idempleado = ?";
+            String cmd = "", comando = "";
+            if (pnlInicioSesion.usuario.equals("roberth")) {
+                cmd = "DELETE FROM trabaja WHERE idempleado = ?";
+                comando = "DELETE FROM empleado_norte WHERE idempleado = ?";
+            } else {
+                cmd = "DELETE FROM vwtrabaja WHERE idempleado = ?";
+                comando = "DELETE FROM empleado_sur WHERE idempleado = ?";
+            }
+
             PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(cmd);
             registro = (Vector) dtm.getDataVector().elementAt(index);
 
             pst.setString(1, registro.elementAt(0).toString());
-            String comando = "DELETE FROM empleado WHERE idempleado = ?";
+
             PreparedStatement pst2 = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
             pst2.setString(1, registro.elementAt(0).toString());
             pst.executeUpdate();
@@ -417,7 +448,12 @@ public class PnlEmpleados extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(PnlEmpleados.class.getName()).log(Level.SEVERE, null, ex);
         }
-        LlenarTabla("SELECT * FROM empleado");
+        if (pnlInicioSesion.usuario.equals("robert")) {
+            LlenarTabla("SELECT * FROM empleado_norte");
+        } else {
+            LlenarTabla("SELECT * FROM empleado_sur");
+        }
+
         System.out.println("Finalizado");
     }//GEN-LAST:event_btnEliminarActionPerformed
     public static void agregarPanel(JPanel pnl) {

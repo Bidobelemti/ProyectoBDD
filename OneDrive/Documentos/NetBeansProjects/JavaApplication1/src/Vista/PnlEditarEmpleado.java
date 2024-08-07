@@ -30,7 +30,14 @@ public class PnlEditarEmpleado extends javax.swing.JPanel {
 
     private void seleccionarCmb() {
         try {
-            String comando = "SELECT * FROM trabaja WHERE idempleado = '" + registro.elementAt(0).toString() + "'";
+            String comando = "";
+            if (pnlInicioSesion.usuario.equals("roberth")) {
+                comando = "SELECT * FROM trabaja WHERE idempleado = '" + registro.elementAt(0).toString() + "'";
+
+            } else {
+                comando = "SELECT * FROM vwtrabaja WHERE idempleado = '" + registro.elementAt(0).toString() + "'";
+
+            }
             PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
             ResultSet rs = pst.executeQuery();
             String valor = "";
@@ -196,16 +203,29 @@ public class PnlEditarEmpleado extends javax.swing.JPanel {
         // TODO add your handling code here:
         // se va a actualizar
         if (PnlEmpleados.estado) {
-            
+
             try {
                 System.out.println(PnlEmpleados.estado);
+                String comando = "", cmd = "";
+                if (pnlInicioSesion.usuario.equals("roberth")) {
+                    comando = "UPDATE empleado_norte SET "
+                            + "nombreempleado = ?, "
+                            + "ciempleado = ?, "
+                            + "telefonosempleado = ?,"
+                            + "domicilioempleado = ? "
+                            + "WHERE idempleado = ?";
+                    cmd = "UPDATE trabaja SET numerosucur = ? WHERE idempleado = ?";
+                } else {
+                    comando = "UPDATE empleado_sur SET "
+                            + "nombreempleado = ?, "
+                            + "ciempleado = ?, "
+                            + "telefonosempleado = ?,"
+                            + "domicilioempleado = ? "
+                            + "WHERE idempleado = ?";
+                    cmd = "UPDATE trabaja@conectRoberth SET numerosucur = ? WHERE idempleado = ?";
 
-                String comando = "UPDATE empleado SET "
-                        + "nombreempleado = ?, "
-                        + "ciempleado = ?, "
-                        + "telefonosempleado = ?,"
-                        + "domicilioempleado = ? "
-                        + "WHERE idempleado = ?";
+                }
+
                 String nombre = txtNombre.getText().toUpperCase();
                 String CIemp = txtCedula.getText().trim();
                 String telefono = txtTelefono.getText().trim();
@@ -224,7 +244,7 @@ public class PnlEditarEmpleado extends javax.swing.JPanel {
                     // Hacer commit de la transacción
                     //pnlInicioSesion.conn.getConnSin().commit();
                     System.out.println(cmbSucursalEmp.getItemAt(cmbSucursalEmp.getSelectedIndex()));
-                    String cmd = "UPDATE trabaja SET numerosucur = ? WHERE idempleado = ?";
+
                     PreparedStatement pst2 = pnlInicioSesion.conn.getConnSin().prepareStatement(cmd);
                     pst2.setString(2, txtIDEmp.getText());
                     pst2.setString(1, cmbSucursalEmp.getItemAt(cmbSucursalEmp.getSelectedIndex()));

@@ -60,10 +60,10 @@ public class PnlEditarSucursales extends javax.swing.JPanel {
         jLabel3.setText("Ciudad");
 
         btgCiudad.add(rbtQuito);
-        rbtQuito.setText("Quito");
+        rbtQuito.setText("Norte");
 
         btgCiudad.add(rbtGuayaquil);
-        rbtGuayaquil.setText("Guayaquil");
+        rbtGuayaquil.setText("Sur");
         rbtGuayaquil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtGuayaquilActionPerformed(evt);
@@ -168,23 +168,47 @@ public class PnlEditarSucursales extends javax.swing.JPanel {
                 String direccion = txtDireccion.getText();
                 String ciudad = "";
                 if (rbtGuayaquil.isSelected()) {
-                    ciudad = "GUAYAQUIL";
+                    ciudad = "SUR";
                 } else {
-                    ciudad = "QUITO";
+                    ciudad = "NORTE";
                 }
-                String comando = "UPDATE sucursal SET "
-                        + "domiciliosucur = ?, "
-                        + "ciudadsucur = ? "
-                        + "WHERE numerosucur = ?";
-                PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
-                pst.setInt(3, numeroSucu);
-                pst.setString(1, direccion);
-                pst.setString(2, ciudad);
-                System.out.println(pst.executeUpdate());
-                JOptionPane.showMessageDialog(null, "Actualizado exitosamente", "Transacción exitosa",
-                        JOptionPane.INFORMATION_MESSAGE);
-                JPanel pnlTabla = new pnlSucursales();
-                Inicio.agregarPanelDerecho(pnlTabla);
+                if (pnlInicioSesion.usuario.equals("roberth") && !rbtGuayaquil.isSelected()) {
+                    String comando = "UPDATE sucursal_norte SET "
+                            + "domiciliosucur = ?, "
+                            + "ciudadsucur = ? "
+                            + "WHERE numerosucur = ?";
+                    PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
+                    pst.setInt(3, numeroSucu);
+                    pst.setString(1, direccion);
+                    pst.setString(2, ciudad);
+                    System.out.println(pst.executeUpdate());
+                    JOptionPane.showMessageDialog(null, "Actualizado exitosamente", "Transacción exitosa",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    JPanel pnlTabla = new pnlSucursales();
+                    Inicio.agregarPanelDerecho(pnlTabla);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se puede cambiar de regioin", "",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+
+                if (pnlInicioSesion.usuario.equals("mauricio") && !rbtQuito.isSelected()) {
+                    String comando = "UPDATE sucursal_sur SET "
+                            + "domiciliosucur = ?, "
+                            + "ciudadsucur = ? "
+                            + "WHERE numerosucur = ?";
+                    PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
+                    pst.setInt(3, numeroSucu);
+                    pst.setString(1, direccion);
+                    pst.setString(2, ciudad);
+                    System.out.println(pst.executeUpdate());
+                    JOptionPane.showMessageDialog(null, "Actualizado exitosamente", "Transacción exitosa",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    JPanel pnlTabla = new pnlSucursales();
+                    Inicio.agregarPanelDerecho(pnlTabla);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se puede cambiar de regioin", "",
+                            JOptionPane.WARNING_MESSAGE);
+                }
             } catch (Exception e) {
                 System.out.println(e);
             }
@@ -193,24 +217,53 @@ public class PnlEditarSucursales extends javax.swing.JPanel {
                 String numeroSucu = txtNumeroSuc.getText();
                 String direccion = txtDireccion.getText();
                 String ciudad = "";
-                if (rbtGuayaquil.isSelected()) {
-                    ciudad = "GUAYAQUIL";
+                if (pnlInicioSesion.usuario.equals("robert") && !rbtGuayaquil.isSelected()) {
+                    if (rbtGuayaquil.isSelected()) {
+                        ciudad = "SUR";
+                    } else {
+                        ciudad = "NORTE";
+                    }
+                    String comando = "INSERT INTO sucursal_norte "
+                            + "VALUES(?,?,?)";
+                    PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
+                    pst.setString(1, numeroSucu);
+                    pst.setString(2, direccion);
+                    pst.setString(3, ciudad);
+                    System.out.println(pst.executeUpdate());
+                    JOptionPane.showMessageDialog(null, "Insertado exitosamente", "Transacción exitosa",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    JPanel pnlTabla = new pnlSucursales();
+                    Inicio.agregarPanelDerecho(pnlTabla);
                 } else {
-                    ciudad = "QUITO";
-                }
-                String comando = "INSERT INTO sucursal "
-                        + "VALUES(?,?,?)";
-                PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
-                pst.setString(1, numeroSucu);
-                pst.setString(2, direccion);
-                pst.setString(3, ciudad);
-                System.out.println(pst.executeUpdate());
-                JOptionPane.showMessageDialog(null, "Insertado exitosamente", "Transacción exitosa",
-                        JOptionPane.INFORMATION_MESSAGE);
-                JPanel pnlTabla = new pnlSucursales();
-                Inicio.agregarPanelDerecho(pnlTabla);
-            } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "No se puede crear en esa region", "",
+                            JOptionPane.WARNING_MESSAGE);
 
+                }
+                if (pnlInicioSesion.usuario.equals("mauricio") && rbtGuayaquil.isSelected()) {
+                    if (rbtGuayaquil.isSelected()) {
+                        ciudad = "SUR";
+                    } else {
+                        ciudad = "NORTE";
+                    }
+                    String comando = "INSERT INTO sucursal_sur "
+                            + "VALUES(?,?,?)";
+                    PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
+                    pst.setString(1, numeroSucu);
+                    pst.setString(2, direccion);
+                    pst.setString(3, ciudad);
+                    System.out.println(pst.executeUpdate());
+                    JOptionPane.showMessageDialog(null, "Insertado exitosamente", "Transacción exitosa",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    JPanel pnlTabla = new pnlSucursales();
+                    Inicio.agregarPanelDerecho(pnlTabla);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se puede crear en esa region", "",
+                            JOptionPane.WARNING_MESSAGE);
+
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "error", "",
+                        JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed

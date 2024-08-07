@@ -43,7 +43,7 @@ public class pnlProductos extends javax.swing.JPanel {
             LlenarTabla("SELECT p.CODIGOPRODUCTO, f.NOMBREFABRICA, p.DESCRIPCIONPRODUCTO, p.COLORPRODUCTO, p.COSTOPRODUCTO FROM PRODUCTO p JOIN FABRICA f ON p.RUCFABRICA = f.RUCFABRICA");
         } else {
             LlenarTabla("SELECT p.CODIGOPRODUCTO, f.NOMBREFABRICA, p.DESCRIPCIONPRODUCTO, p.COLORPRODUCTO, p.COSTOPRODUCTO FROM VWPRODUCTO p JOIN VWFABRICA f ON p.RUCFABRICA = f.RUCFABRICA");
-            btnEditar.setEnabled(false);
+
             btnEliminar.setEnabled(false);
             btnNuevo.setEnabled(false);
         }
@@ -104,7 +104,6 @@ public class pnlProductos extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
         pnlProductos = new javax.swing.JPanel();
@@ -113,13 +112,6 @@ public class pnlProductos extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(590, 388));
-
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
 
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -180,8 +172,7 @@ public class pnlProductos extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(84, 84, 84)
                         .addComponent(btnEliminar)
                         .addGap(18, 18, 18)
                         .addComponent(btnNuevo)
@@ -196,50 +187,33 @@ public class pnlProductos extends javax.swing.JPanel {
                 .addComponent(pnlProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEditar)
                     .addComponent(btnEliminar)
                     .addComponent(btnNuevo))
                 .addGap(7, 7, 7))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
-        estado = true;
-        JPanel pnlEditar = new PnlEditarProductos();
-        int index = tblProductos.getSelectedRow();
-        if (index != -1) {
-            try {
-
-                registro = (Vector) dtm.getDataVector().elementAt(index);
-                String comando = "SELECT * FROM producto WHERE codigoprodcuto = " + registro.elementAt(0).toString();
-                PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
-                ResultSet rs = pst.executeQuery();
-                String ciudad = "";
-                while (rs.next()) {
-                    PnlEditarSucursales.txtNumeroSuc.setText(rs.getString(1));
-                    PnlEditarSucursales.txtDireccion.setText(rs.getString(2));
-                    ciudad = rs.getString(3);
-                }
-                if (ciudad.toUpperCase().equals("QUITO")) {
-                    PnlEditarSucursales.rbtQuito.setSelected(true);
-                } else {
-                    PnlEditarSucursales.rbtGuayaquil.setSelected(true);
-                }
-
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-
-            Inicio.agregarPanelDerecho(pnlEditar);
-        } else {
-            JOptionPane.showMessageDialog(null, "Selecciona una fila", "Acceso no permitido", 2);
-
-        }
-    }//GEN-LAST:event_btnEditarActionPerformed
-
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            int index = tblProductos.getSelectedRow();
+
+            String cmd = "DELETE FROM producto WHERE codigoproducto = ?";
+            PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(cmd);
+            registro = (Vector) dtm.getDataVector().elementAt(index);
+
+            pst.setString(1, registro.elementAt(0).toString());
+            pst.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Eliminado exitosamente", "Transacción exitosa",
+                    JOptionPane.INFORMATION_MESSAGE);
+            limpiarTabla();
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(PnlEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        LlenarTabla("SELECT * FROM producto");
+        System.out.println("Finalizado");
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -270,7 +244,6 @@ public class pnlProductos extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JScrollPane jScrollPane1;

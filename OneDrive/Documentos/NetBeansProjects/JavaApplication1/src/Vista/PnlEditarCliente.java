@@ -90,10 +90,15 @@ public class PnlEditarCliente extends javax.swing.JPanel {
         cmbSucursales.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btgCiudad.add(rbtQuito);
-        rbtQuito.setText("Quito");
+        rbtQuito.setText("Norte");
 
         btgCiudad.add(rbtGuayaquil);
-        rbtGuayaquil.setText("Guayaquil");
+        rbtGuayaquil.setText("Sur");
+        rbtGuayaquil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtGuayaquilActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Nombre");
 
@@ -203,9 +208,9 @@ public class PnlEditarCliente extends javax.swing.JPanel {
                 String nombre = txtNombre.getText().toUpperCase();
                 String cedula = txtCedula.getText();
                 if (rbtGuayaquil.isSelected()) {
-                    ciudad = "GUAYAQUIL";
+                    ciudad = "SUR";
                 } else {
-                    ciudad = "QUITO";
+                    ciudad = "NORTE";
                 }
                 String comando = "UPDATE cliente SET "
                         + "numerosucur = ?, "
@@ -239,20 +244,28 @@ public class PnlEditarCliente extends javax.swing.JPanel {
                 String ID = txtID.getText().toUpperCase();
                 System.out.println("sucursal: " + numeroSucu);
                 if (rbtGuayaquil.isSelected()) {
-                    ciudad = "GUAYAQUIL";
+                    ciudad = "SUR";
                 } else {
-                    ciudad = "QUITO";
+                    ciudad = "NORTE";
                 }
-                String comando = "INSERT INTO cliente (codigocliente, numerosucur, nombrecliente, ciudadcliente, fechanac_cliente,cicliente) "
-                        + "VALUES (?,?,?,?, CURRENT_DATE,?)";
-                PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
+                String comando = "";
                 
+                if (pnlInicioSesion.usuario.equals("roberth")) {
+                    comando = "INSERT INTO cliente_norte (codigocliente, numerosucur, nombrecliente, ciudadcliente, fechanac_cliente,cicliente) "
+                            + "VALUES (?,?,?,?, CURRENT_DATE,?)";
+                } else {
+                    comando = "INSERT INTO cliente_sur (codigocliente, numerosucur, nombrecliente, ciudadcliente, fechanac_cliente,cicliente) "
+                            + "VALUES (?,?,?,?, CURRENT_DATE,?)";
+                }
+
+                PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
+
                 pst.setString(1, ID);
                 pst.setString(2, numeroSucu);
                 pst.setString(3, nombre);
                 pst.setString(4, ciudad);
                 pst.setString(5, cedula);
-                
+
                 System.out.println(pst.executeUpdate());
                 System.out.println("Terminado");
                 JOptionPane.showMessageDialog(null, "Cliente insertado exitosamente", "Transacción exitosa",
@@ -264,11 +277,23 @@ public class PnlEditarCliente extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void rbtGuayaquilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtGuayaquilActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtGuayaquilActionPerformed
     private void seleccionarCmb() {
         try {
-            String comando = "SELECT s.numerosucur FROM cliente c JOIN "
-                    + " sucursal s on c.numerosucur = s.numerosucur "
-                    + "WHERE c.codigocliente = '" + registro.elementAt(0).toString() + "'";
+            String comando = "";
+            if (pnlInicioSesion.usuario.equals("roberth")) {
+                comando = "SELECT s.numerosucur FROM cliente_norte c JOIN "
+                        + " sucursal s on c.numerosucur = s.numerosucur "
+                        + "WHERE c.codigocliente = '" + registro.elementAt(0).toString() + "'";
+            } else {
+                comando = "SELECT s.numerosucur FROM cliente_sur c JOIN "
+                        + " sucursal s on c.numerosucur = s.numerosucur "
+                        + "WHERE c.codigocliente = '" + registro.elementAt(0).toString() + "'";
+            }
+
             PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
             ResultSet rs = pst.executeQuery();
             String valor = "";

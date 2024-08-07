@@ -37,7 +37,12 @@ public class pnlSucursales extends javax.swing.JPanel {
         dtm.addColumn("DIRECCIÓN");
         dtm.addColumn("CIUDAD");
         tblSucursales.setModel(dtm);
-        LlenarTabla("SELECT * FROM todas_sucursales");
+        if (pnlInicioSesion.usuario.equals("roberth")) {
+            LlenarTabla("SELECT * FROM sucursal_norte");
+        } else {
+            LlenarTabla("SELECT * FROM sucursal_sur");
+
+        }
         System.out.println(pnlInicioSesion.usuario);
     }
 
@@ -105,6 +110,7 @@ public class pnlSucursales extends javax.swing.JPanel {
         });
 
         btnBuscar.setText("Buscar");
+        btnBuscar.setEnabled(false);
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -113,14 +119,14 @@ public class pnlSucursales extends javax.swing.JPanel {
 
         cmbCiudades.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Quito", "Guayaquil" }));
 
-        jLabel1.setText("Ciudad");
+        jLabel1.setText("Zona");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(157, Short.MAX_VALUE)
+                .addContainerGap(168, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbCiudades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -246,7 +252,12 @@ public class pnlSucursales extends javax.swing.JPanel {
             try {
 
                 registro = (Vector) dtm.getDataVector().elementAt(index);
-                String comando = "SELECT * FROM todas_sucursales WHERE numerosucur = " + registro.elementAt(0).toString();
+                String comando = "";
+                if (pnlInicioSesion.usuario.equals("roberth")) {
+                    comando = "SELECT * FROM sucursal_norte WHERE numerosucur = " + registro.elementAt(0).toString();
+                } else {
+                    comando = "SELECT * FROM sucursal_sur WHERE numerosucur = " + registro.elementAt(0).toString();
+                }
                 PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
                 ResultSet rs = pst.executeQuery();
                 String ciudad = "";
@@ -255,7 +266,7 @@ public class pnlSucursales extends javax.swing.JPanel {
                     PnlEditarSucursales.txtDireccion.setText(rs.getString(2));
                     ciudad = rs.getString(3);
                 }
-                if (ciudad.toUpperCase().trim().equals("QUITO")) {
+                if (ciudad.toUpperCase().trim().equals("SUR")) {
                     PnlEditarSucursales.rbtQuito.setSelected(true);
                 } else {
                     PnlEditarSucursales.rbtGuayaquil.setSelected(true);

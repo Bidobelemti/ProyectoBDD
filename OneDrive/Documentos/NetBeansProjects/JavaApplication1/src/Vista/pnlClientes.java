@@ -89,7 +89,6 @@ public class pnlClientes extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
         pnlSucursal = new javax.swing.JPanel();
@@ -98,13 +97,6 @@ public class pnlClientes extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(590, 388));
-
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
 
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -165,8 +157,7 @@ public class pnlClientes extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(84, 84, 84)
                         .addComponent(btnEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnNuevo)
@@ -181,65 +172,18 @@ public class pnlClientes extends javax.swing.JPanel {
                 .addComponent(pnlSucursal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEditar)
                     .addComponent(btnEliminar)
                     .addComponent(btnNuevo))
                 .addGap(7, 7, 7))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
-        estado = true;
-        int index = tblClientes.getSelectedRow();
-        registro = (Vector) dtm.getDataVector().elementAt(index);
-        JPanel pnlEditar = new PnlEditarCliente();
-        PnlEditarCliente.txtID.setEditable(false);
-
-        if (index != -1) {
-            try {
-
-                String comando = "SELECT * FROM cliente WHERE codigocliente = '" + registro.elementAt(0).toString() + "'";
-                String ciudad = "";
-                String sucursal = "";
-                String cmd = "SELECT s.numerosucur from cliente c"
-                        + " JOIN sucursal s ON c.numerosucur = s.numerosucur "
-                        + "WHERE c.codigocliente = '" + registro.elementAt(0).toString() + "'";
-
-                PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
-                ResultSet rs = pst.executeQuery();
-
-                while (rs.next()) {
-                    PnlEditarCliente.txtID.setText(rs.getString(1));
-                    PnlEditarCliente.txtNombre.setText(rs.getString(3));
-                    PnlEditarCliente.txtCedula.setText(rs.getString(6));
-                    ciudad = rs.getString(4);
-                }
-                if (ciudad.toUpperCase().trim().equals("QUITO") && pnlInicioSesion.usuario.equals("roberth")) {
-                    System.out.println(ciudad + " imprimir ciudad");
-
-                    PnlEditarCliente.rbtQuito.setSelected(true);
-                    PnlEditarCliente.rbtGuayaquil.setEnabled(false);
-
-                    System.out.println(ciudad + " imprimir ciudad");
-                }
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-
-            Inicio.agregarPanelDerecho(pnlEditar);
-        } else {
-            JOptionPane.showMessageDialog(null, "Selecciona una fila", "Acceso no permitido", 2);
-
-        }
-    }//GEN-LAST:event_btnEditarActionPerformed
-
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
         try {
             int index = tblClientes.getSelectedRow();
             registro = (Vector) dtm.getDataVector().elementAt(index);
-            if (registro.elementAt(3).toString().equals("QUITO") && pnlInicioSesion.usuario.equals("roberth")) {
+            if (registro.elementAt(3).toString().equals("NORTE") && pnlInicioSesion.usuario.equals("roberth")) {
                 // TODO add your handling code here:
 
                 String cmd = "DELETE FROM tarjeta WHERE codigocliente = ?";
@@ -255,7 +199,7 @@ public class pnlClientes extends javax.swing.JPanel {
                         JOptionPane.INFORMATION_MESSAGE);
                 limpiarTabla();
             } else {
-                String cmd = "DELETE FROM tarjeta WHERE codigocliente = ?";
+                String cmd = "DELETE FROM tarjeta@conectRoberth WHERE codigocliente = ?";
                 PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(cmd);
 
                 pst.setString(1, registro.elementAt(0).toString());
@@ -271,7 +215,7 @@ public class pnlClientes extends javax.swing.JPanel {
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(PnlEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        LlenarTabla("SELECT * FROM cliente");
+        //LlenarTabla("SELECT * FROM cliente");
         System.out.println("Finalizado");
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -304,7 +248,6 @@ public class pnlClientes extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JScrollPane jScrollPane1;
