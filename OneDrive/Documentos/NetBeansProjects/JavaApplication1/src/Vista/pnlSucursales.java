@@ -297,6 +297,35 @@ public class pnlSucursales extends javax.swing.JPanel {
 
     private void tblSucursalesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSucursalesMouseClicked
         // TODO add your handling code here:
+        try {
+            int index = tblSucursales.getSelectedRow();
+            registro = (Vector) dtm.getDataVector().elementAt(index);
+            if (registro.elementAt(1).toString().equals("NORTE") && pnlInicioSesion.usuario.equals("roberth")) {
+                // TODO add your handling code here:
+
+                String comando = "DELETE FROM sucursal_norte WHERE numerosucur= ?";
+                PreparedStatement pst2 = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
+                pst2.setString(1, registro.elementAt(0).toString());
+
+                pst2.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Eliminado exitosamente", "Transacción exitosa",
+                        JOptionPane.INFORMATION_MESSAGE);
+                limpiarTabla();
+            } else {
+
+                String comando = "DELETE FROM sucursal_sur WHERE numerosucur = ?";
+                PreparedStatement pst2 = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
+                pst2.setString(1, registro.elementAt(0).toString());
+
+                pst2.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Eliminado exitosamente", "Transacción exitosa",
+                        JOptionPane.INFORMATION_MESSAGE);
+                limpiarTabla();
+            }
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(PnlEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //LlenarTabla("SELECT * FROM cliente");
     }//GEN-LAST:event_tblSucursalesMouseClicked
 
     private void agregarPanel(JPanel pnl) {
