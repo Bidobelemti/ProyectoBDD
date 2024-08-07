@@ -43,13 +43,13 @@ public class Inicio extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         pnlProductos = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        pnlClientes = new javax.swing.JPanel();
+        pnlTarjetas = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         pnlAuditoria = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        pnlCerrar = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
+        pnlClientes = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -178,28 +178,28 @@ public class Inicio extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        pnlClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pnlClientes.setPreferredSize(new java.awt.Dimension(129, 40));
-        pnlClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        pnlTarjetas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlTarjetas.setPreferredSize(new java.awt.Dimension(129, 40));
+        pnlTarjetas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pnlClientesMouseClicked(evt);
+                pnlTarjetasMouseClicked(evt);
             }
         });
 
-        jLabel8.setText("Clientes");
+        jLabel8.setText("Tarjetas");
 
-        javax.swing.GroupLayout pnlClientesLayout = new javax.swing.GroupLayout(pnlClientes);
-        pnlClientes.setLayout(pnlClientesLayout);
-        pnlClientesLayout.setHorizontalGroup(
-            pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlClientesLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlTarjetasLayout = new javax.swing.GroupLayout(pnlTarjetas);
+        pnlTarjetas.setLayout(pnlTarjetasLayout);
+        pnlTarjetasLayout.setHorizontalGroup(
+            pnlTarjetasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTarjetasLayout.createSequentialGroup()
                 .addGap(65, 65, 65)
                 .addComponent(jLabel8)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        pnlClientesLayout.setVerticalGroup(
-            pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlClientesLayout.createSequentialGroup()
+        pnlTarjetasLayout.setVerticalGroup(
+            pnlTarjetasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTarjetasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8)
                 .addContainerGap(18, Short.MAX_VALUE))
@@ -235,30 +235,30 @@ public class Inicio extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tempus Sans ITC", 0, 18)); // NOI18N
         jLabel1.setText("EJECORP");
 
-        pnlCerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pnlCerrar.setPreferredSize(new java.awt.Dimension(129, 40));
-        pnlCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+        pnlClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlClientes.setPreferredSize(new java.awt.Dimension(129, 40));
+        pnlClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pnlCerrarMouseClicked(evt);
+                pnlClientesMouseClicked(evt);
             }
         });
 
-        jLabel10.setText("Cerrar");
+        jLabel11.setText("Clientes");
 
-        javax.swing.GroupLayout pnlCerrarLayout = new javax.swing.GroupLayout(pnlCerrar);
-        pnlCerrar.setLayout(pnlCerrarLayout);
-        pnlCerrarLayout.setHorizontalGroup(
-            pnlCerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlCerrarLayout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+        javax.swing.GroupLayout pnlClientesLayout = new javax.swing.GroupLayout(pnlClientes);
+        pnlClientes.setLayout(pnlClientesLayout);
+        pnlClientesLayout.setHorizontalGroup(
+            pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlClientesLayout.createSequentialGroup()
+                .addGap(65, 65, 65)
+                .addComponent(jLabel11)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        pnlCerrarLayout.setVerticalGroup(
-            pnlCerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlCerrarLayout.createSequentialGroup()
+        pnlClientesLayout.setVerticalGroup(
+            pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlClientesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel10)
+                .addComponent(jLabel11)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -273,13 +273,13 @@ public class Inicio extends javax.swing.JFrame {
                     .addComponent(pnlEmpleados, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                     .addComponent(pnlSucursales, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-                    .addComponent(pnlClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                    .addComponent(pnlTarjetas, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                     .addComponent(pnlAuditoria, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(jLabel1)
                         .addGap(0, 50, Short.MAX_VALUE))
-                    .addComponent(pnlCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
+                    .addComponent(pnlClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -292,16 +292,16 @@ public class Inicio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlSucursales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlTarjetas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlFabrica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addComponent(pnlCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -349,11 +349,15 @@ public class Inicio extends javax.swing.JFrame {
 
     private void pnlProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlProductosMouseClicked
         // TODO add your handling code here:
+        JPanel PnlProductos = new pnlProductos();
+        agregarPanelDerecho(PnlProductos);
     }//GEN-LAST:event_pnlProductosMouseClicked
 
-    private void pnlClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlClientesMouseClicked
+    private void pnlTarjetasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlTarjetasMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_pnlClientesMouseClicked
+        JPanel PnlTarjeta = new pnlTarjetas();
+        agregarPanelDerecho(PnlTarjeta);
+    }//GEN-LAST:event_pnlTarjetasMouseClicked
 
     private void pnlAuditoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlAuditoriaMouseClicked
         // TODO add your handling code here:
@@ -361,9 +365,11 @@ public class Inicio extends javax.swing.JFrame {
         agregarPanelDerecho(Pnlauditoria);
     }//GEN-LAST:event_pnlAuditoriaMouseClicked
 
-    private void pnlCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlCerrarMouseClicked
+    private void pnlClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlClientesMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_pnlCerrarMouseClicked
+        JPanel PnlClientes = new pnlClientes();
+        agregarPanelDerecho(PnlClientes);
+    }//GEN-LAST:event_pnlClientesMouseClicked
     public static void agregarPanelDerecho(JPanel pnl) {
         //ajustamos el tamaño
         pnl.setSize(590, 400);
@@ -415,7 +421,7 @@ public class Inicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -424,12 +430,12 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel pnlAuditoria;
-    public static javax.swing.JPanel pnlCerrar;
     private javax.swing.JPanel pnlClientes;
     public static javax.swing.JPanel pnlDerecho;
     private javax.swing.JPanel pnlEmpleados;
     public static javax.swing.JPanel pnlFabrica;
     private javax.swing.JPanel pnlProductos;
     private javax.swing.JPanel pnlSucursales;
+    private javax.swing.JPanel pnlTarjetas;
     // End of variables declaration//GEN-END:variables
 }

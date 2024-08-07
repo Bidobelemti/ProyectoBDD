@@ -5,7 +5,7 @@
 package Vista;
 
 import Modelo.Conexion;
-import static Vista.PnlEmpleados.registro;
+
 import java.awt.BorderLayout;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
@@ -14,7 +14,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -22,27 +21,27 @@ import javax.swing.JPanel;
  *
  * @author mauri
  */
-public class pnlFabrica extends javax.swing.JPanel {
+public class pnlClientes extends javax.swing.JPanel {
 
     /**
      * Creates new form pnlInicioSesion
      */
     private DefaultTableModel dtm;
-    private Object[] obj = new Object[4];
+    private Object[] obj = new Object[6];
     public static boolean estado = true;
     public static Vector registro;
-    public static Vector paises;
 
-    public pnlFabrica() {
+    public pnlClientes() {
         initComponents();
         dtm = new DefaultTableModel();
         dtm.addColumn("ID");
+        dtm.addColumn("SUCURSAL");
         dtm.addColumn("NOMBRE");
-        dtm.addColumn("PAIS");
-        dtm.addColumn("GERENTE");
-        tblFarbicas.setModel(dtm);
-        LlenarTabla("SELECT * FROM fabrica");
-        llenarCmb(cmbPaises);
+        dtm.addColumn("CIUDAD");
+        dtm.addColumn("NACIMIENTO");
+        dtm.addColumn("CEDULA");
+        tblClientes.setModel(dtm);
+        LlenarTabla("SELECT * FROM cliente");
     }
 
     private void LlenarTabla(String comando) {
@@ -54,6 +53,8 @@ public class pnlFabrica extends javax.swing.JPanel {
                 obj[1] = rs.getString(2);
                 obj[2] = rs.getString(3);
                 obj[3] = rs.getString(4);
+                obj[4] = rs.getString(5);
+                obj[5] = rs.getString(6);
                 dtm.addRow(obj);
             }
             pst.execute();
@@ -72,24 +73,6 @@ public class pnlFabrica extends javax.swing.JPanel {
         }
     }
 
-    static public void llenarCmb(JComboBox cmb) {
-        try {
-            cmb.removeAllItems();
-            cmb.addItem("  ");
-            String comando = "SELECT DISTINCT paisfabrica FROM fabrica";
-            PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                String ID = rs.getString(1);
-                cmb.addItem(ID);
-
-            }
-            pst.execute();
-        } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(Conexion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -101,20 +84,15 @@ public class pnlFabrica extends javax.swing.JPanel {
 
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        btnBuscar = new javax.swing.JButton();
-        cmbPaises = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
         btnNuevo = new javax.swing.JButton();
-        pnlFarbicas = new javax.swing.JPanel();
+        pnlSucursal = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblFarbicas = new javax.swing.JTable();
+        tblClientes = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(590, 388));
 
         btnEditar.setText("Editar");
-        btnEditar.setEnabled(false);
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
@@ -128,41 +106,6 @@ public class pnlFabrica extends javax.swing.JPanel {
             }
         });
 
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-
-        cmbPaises.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Quito", "Guayaquil" }));
-
-        jLabel1.setText("País");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbPaises, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(83, 83, 83)
-                .addComponent(btnBuscar)
-                .addGap(160, 160, 160))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBuscar)
-                    .addComponent(cmbPaises, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,7 +113,7 @@ public class pnlFabrica extends javax.swing.JPanel {
             }
         });
 
-        tblFarbicas.setModel(new javax.swing.table.DefaultTableModel(
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -181,30 +124,30 @@ public class pnlFabrica extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblFarbicas.setToolTipText("");
-        tblFarbicas.setDragEnabled(true);
-        tblFarbicas.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblClientes.setToolTipText("");
+        tblClientes.setDragEnabled(true);
+        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblFarbicasMouseClicked(evt);
+                tblClientesMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblFarbicas);
+        jScrollPane1.setViewportView(tblClientes);
 
-        javax.swing.GroupLayout pnlFarbicasLayout = new javax.swing.GroupLayout(pnlFarbicas);
-        pnlFarbicas.setLayout(pnlFarbicasLayout);
-        pnlFarbicasLayout.setHorizontalGroup(
-            pnlFarbicasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFarbicasLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlSucursalLayout = new javax.swing.GroupLayout(pnlSucursal);
+        pnlSucursal.setLayout(pnlSucursalLayout);
+        pnlSucursalLayout.setHorizontalGroup(
+            pnlSucursalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSucursalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        pnlFarbicasLayout.setVerticalGroup(
-            pnlFarbicasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFarbicasLayout.createSequentialGroup()
+        pnlSucursalLayout.setVerticalGroup(
+            pnlSucursalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSucursalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -214,24 +157,21 @@ public class pnlFabrica extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnNuevo)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(pnlFarbicas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnlSucursal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(pnlFarbicas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlSucursal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar)
@@ -241,45 +181,41 @@ public class pnlFabrica extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-        limpiarTabla();
-        String comando = "";
-        int index = cmbPaises.getSelectedIndex();
-        String pais = cmbPaises.getSelectedItem().toString();
-        System.out.println(pais);
-        comando = "SELECT * FROM fabrica where paisfabrica = '" + pais + "'";
-        if (index == 0) {
-            comando = "SELECT * FROM fabrica";
-        }
-        LlenarTabla(comando);
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
         estado = true;
-        JPanel pnlEditar = new PnlEditarSucursales();
-        PnlEditarSucursales.txtNumeroSuc.setEditable(false);
-        int index = tblFarbicas.getSelectedRow();
+        int index = tblClientes.getSelectedRow();
+        registro = (Vector) dtm.getDataVector().elementAt(index);
+        JPanel pnlEditar = new PnlEditarCliente();
+        PnlEditarCliente.txtID.setEditable(false);
+        
         if (index != -1) {
             try {
 
-                registro = (Vector) dtm.getDataVector().elementAt(index);
-                String comando = "SELECT * FROM todas_sucursales WHERE numerosucur = " + registro.elementAt(0).toString();
+                
+                String comando = "SELECT * FROM cliente WHERE codigocliente = '" + registro.elementAt(0).toString() + "'";
+                String ciudad = "";
+                String sucursal = "";
+                String cmd = "SELECT s.numerosucur from cliente c"
+                        + " JOIN sucursal s ON c.numerosucur = s.numerosucur "
+                        + "WHERE c.codigocliente = '" + registro.elementAt(0).toString() + "'";
+
                 PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
                 ResultSet rs = pst.executeQuery();
-                String ciudad = "";
-                while (rs.next()) {
-                    PnlEditarSucursales.txtNumeroSuc.setText(rs.getString(1));
-                    PnlEditarSucursales.txtDireccion.setText(rs.getString(2));
-                    ciudad = rs.getString(3);
-                }
-                if (ciudad.toUpperCase().equals("QUITO")) {
-                    PnlEditarSucursales.rbtQuito.setSelected(true);
-                } else {
-                    PnlEditarSucursales.rbtGuayaquil.setSelected(true);
-                }
 
+                while (rs.next()) {
+                    PnlEditarCliente.txtID.setText(rs.getString(1));
+                    PnlEditarCliente.txtNombre.setText(rs.getString(3));
+                    PnlEditarCliente.txtCedula.setText(rs.getString(6));
+                    ciudad = rs.getString(4);
+                }
+                System.out.println(ciudad + " imprimir ciudad");
+                if (ciudad.toUpperCase().trim().equals("QUITO")) {
+                    PnlEditarCliente.rbtQuito.setSelected(true);
+                } else {
+                    PnlEditarCliente.rbtGuayaquil.setSelected(true);
+                }
+                System.out.println(ciudad + " imprimir ciudad");
             } catch (Exception e) {
                 System.out.println(e);
             }
@@ -293,16 +229,16 @@ public class pnlFabrica extends javax.swing.JPanel {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        /*
         try {
             // TODO add your handling code here:
-            int index = tblFarbicas.getSelectedRow();
-            String cmd = "DELETE FROM fabrica WHERE idempleado = ?";
+            int index = tblClientes.getSelectedRow();
+            
+            String cmd = "DELETE FROM tarjeta WHERE codigocliente = ?";
             PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(cmd);
             registro = (Vector) dtm.getDataVector().elementAt(index);
 
             pst.setString(1, registro.elementAt(0).toString());
-            String comando = "DELETE FROM empleado WHERE idempleado = ?";
+            String comando = "DELETE FROM cliente WHERE codigocliente = ?";
             PreparedStatement pst2 = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
             pst2.setString(1, registro.elementAt(0).toString());
             pst.executeUpdate();
@@ -313,21 +249,21 @@ public class pnlFabrica extends javax.swing.JPanel {
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(PnlEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        LlenarTabla("SELECT * FROM fabrica");
-        System.out.println("Finalizado");*/
+        LlenarTabla("SELECT * FROM cliente");
+        System.out.println("Finalizado");
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
         estado = false;
-        JPanel pnlEditar = new PnlEditarFabrica();
+        JPanel pnlEditar = new PnlEditarCliente();
         Inicio.agregarPanelDerecho(pnlEditar);
 
     }//GEN-LAST:event_btnNuevoActionPerformed
 
-    private void tblFarbicasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFarbicasMouseClicked
+    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_tblFarbicasMouseClicked
+    }//GEN-LAST:event_tblClientesMouseClicked
 
     private void agregarPanel(JPanel pnl) {
         //ajustamos el tamaño
@@ -335,25 +271,23 @@ public class pnlFabrica extends javax.swing.JPanel {
         //colocamos, la esquina superior izquierda posee coordenadas (0,0)
         pnl.setLocation(0, 0);
         //remueve lo del panel inicio
-        pnlFarbicas.removeAll();
+        pnlSucursal.removeAll();
         //en el panel inicio agregue el panel clientes con una ubicación
-        pnlFarbicas.add(pnl, BorderLayout.CENTER);
+        pnlSucursal.add(pnl, BorderLayout.CENTER);
         //elimina toda la jerarquia y la construye nuevamente
         System.out.println("revalidate");
-        pnlFarbicas.revalidate();
-        pnlFarbicas.repaint();
+        pnlSucursal.revalidate();
+        pnlSucursal.repaint();
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnNuevo;
-    private javax.swing.JComboBox<String> cmbPaises;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    public static javax.swing.JPanel pnlFarbicas;
-    private javax.swing.JTable tblFarbicas;
+    public static javax.swing.JPanel pnlSucursal;
+    private javax.swing.JTable tblClientes;
     // End of variables declaration//GEN-END:variables
 }

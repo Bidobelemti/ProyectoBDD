@@ -26,7 +26,6 @@ public class PnlEditarEmpleado extends javax.swing.JPanel {
         initComponents();
         PnlEmpleados.llenarCmb(cmbSucursalEmp);
         seleccionarCmb();
-        System.out.println(PnlEmpleados.estado + " f para ed y T para cr");
     }
 
     private void seleccionarCmb() {
@@ -230,7 +229,7 @@ public class PnlEditarEmpleado extends javax.swing.JPanel {
                     pst2.setString(2, txtIDEmp.getText());
                     pst2.setString(1, cmbSucursalEmp.getItemAt(cmbSucursalEmp.getSelectedIndex()));
 
-                    pst.executeUpdate();
+                    System.out.println(pst.executeUpdate());
                     pst2.executeUpdate();
                     System.out.println("Empleado actualizado exitosamente.");
                     JOptionPane.showMessageDialog(null, "Empleado actualizado exitosamente", "Transacción exitosa",
