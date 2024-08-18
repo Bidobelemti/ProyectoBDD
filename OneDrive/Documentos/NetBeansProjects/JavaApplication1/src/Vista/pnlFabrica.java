@@ -293,17 +293,16 @@ public class pnlFabrica extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-        /*
+
         try {
             // TODO add your handling code here:
             int index = tblFarbicas.getSelectedRow();
-            String cmd = "DELETE FROM fabrica WHERE idempleado = ?";
+            String cmd = "DELETE FROM fabrica WHERE rucfabrica = ?";
             PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(cmd);
             registro = (Vector) dtm.getDataVector().elementAt(index);
 
             pst.setString(1, registro.elementAt(0).toString());
-            String comando = "DELETE FROM empleado WHERE idempleado = ?";
+            String comando = "DELETE FROM producto WHERE rucfabrica = ?";
             PreparedStatement pst2 = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
             pst2.setString(1, registro.elementAt(0).toString());
             pst.executeUpdate();
@@ -315,7 +314,7 @@ public class pnlFabrica extends javax.swing.JPanel {
             java.util.logging.Logger.getLogger(PnlEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         LlenarTabla("SELECT * FROM fabrica");
-        System.out.println("Finalizado");*/
+        System.out.println("Finalizado");
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed

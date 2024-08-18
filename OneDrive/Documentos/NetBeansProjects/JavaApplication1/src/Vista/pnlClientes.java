@@ -42,9 +42,9 @@ public class pnlClientes extends javax.swing.JPanel {
         dtm.addColumn("CEDULA");
         tblClientes.setModel(dtm);
         if (pnlInicioSesion.usuario.equals("roberth")) {
-            LlenarTabla("SELECT * FROM cliente");
+            LlenarTabla("SELECT * FROM cliente_norte");
         } else {
-            LlenarTabla("SELECT * FROM cliente_sur");
+            LlenarTabla("select * from cliente_sur");
             System.out.println("surrrr");
         }
 
@@ -183,40 +183,43 @@ public class pnlClientes extends javax.swing.JPanel {
         try {
             int index = tblClientes.getSelectedRow();
             registro = (Vector) dtm.getDataVector().elementAt(index);
-            if (registro.elementAt(3).toString().equals("NORTE") && pnlInicioSesion.usuario.equals("roberth")) {
+            if (registro.elementAt(3).toString().toUpperCase().trim().equals("NORTE") && pnlInicioSesion.usuario.equals("roberth")) {
                 // TODO add your handling code here:
 
-                String cmd = "DELETE FROM tarjeta WHERE codigocliente = ?";
-                PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(cmd);
+                //String cmd = "DELETE FROM tarjeta WHERE codigocliente = ?";
+                //PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(cmd);
 
-                pst.setString(1, registro.elementAt(0).toString());
+                //pst.setString(1, registro.elementAt(0).toString());
                 String comando = "DELETE FROM cliente_norte WHERE codigocliente = ?";
                 PreparedStatement pst2 = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
                 pst2.setString(1, registro.elementAt(0).toString());
-                pst.executeUpdate();
+                //pst.executeUpdate();
                 pst2.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Eliminado exitosamente", "Transacción exitosa",
                         JOptionPane.INFORMATION_MESSAGE);
                 limpiarTabla();
             } else {
-                String cmd = "DELETE FROM tarjeta@conectRoberth WHERE codigocliente = ?";
-                PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(cmd);
+                if (registro.elementAt(3).toString().toUpperCase().trim().equals("SUR") && pnlInicioSesion.usuario.equals("mauricio")) {
+                   // String cmd = "DELETE FROM tarjeta@conectRoberth WHERE codigocliente = ?";
+                    //PreparedStatement pst = pnlInicioSesion.conn.getConnSin().prepareStatement(cmd);
 
-                pst.setString(1, registro.elementAt(0).toString());
-                String comando = "DELETE FROM cliente_sur WHERE codigocliente = ?";
-                PreparedStatement pst2 = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
-                pst2.setString(1, registro.elementAt(0).toString());
-                pst.executeUpdate();
-                pst2.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Eliminado exitosamente", "Transacción exitosa",
-                        JOptionPane.INFORMATION_MESSAGE);
-                limpiarTabla();
+                    //pst.setString(1, registro.elementAt(0).toString());
+                    String comando = "DELETE FROM cliente_sur WHERE codigocliente = ?";
+                    PreparedStatement pst2 = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
+                    pst2.setString(1, registro.elementAt(0).toString());
+                    //pst.executeUpdate();
+                    pst2.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Eliminado exitosamente", "Transacción exitosa",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    limpiarTabla();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se presentó un error", "Transacción fallida",
+                            JOptionPane.ERROR_MESSAGE);
+                }
             }
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(PnlEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //LlenarTabla("SELECT * FROM cliente");
-        System.out.println("Finalizado");
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed

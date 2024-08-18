@@ -405,8 +405,11 @@ public class PnlEmpleados extends javax.swing.JPanel {
                     PnlEditarEmpleado.txtTelefono.setText(rs.getString(4));
                     PnlEditarEmpleado.txtDireccion.setText(rs.getString(5));
                 }
-                agregarPanel(pnlEditar);
                 pst.execute();
+                JOptionPane.showMessageDialog(null, "Empleado editado exitosamente", "Transacción exitosa",
+                        JOptionPane.INFORMATION_MESSAGE);
+                agregarPanel(pnlEditar);
+
             } catch (SQLException ex) {
                 System.out.println(ex);
             }

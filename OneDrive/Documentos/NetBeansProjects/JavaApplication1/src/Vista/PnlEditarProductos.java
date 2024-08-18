@@ -18,7 +18,6 @@ public class PnlEditarProductos extends javax.swing.JPanel {
      */
     public PnlEditarProductos() {
         initComponents();
-        System.out.println(pnlSucursales.estado + " estado");
     }
 
     /**
@@ -35,7 +34,7 @@ public class PnlEditarProductos extends javax.swing.JPanel {
         btgCiudad = new javax.swing.ButtonGroup();
         pnlSucursalEd = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtNumeroSuc = new javax.swing.JTextField();
+        txtCodigo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
@@ -99,7 +98,7 @@ public class PnlEditarProductos extends javax.swing.JPanel {
                             .addComponent(jLabel1))
                         .addGap(29, 29, 29)
                         .addGroup(pnlSucursalEdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNumeroSuc, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cmbFabricas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnlSucursalEdLayout.createSequentialGroup()
                         .addGroup(pnlSucursalEdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,7 +119,7 @@ public class PnlEditarProductos extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(pnlSucursalEdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtNumeroSuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlSucursalEdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -164,16 +163,16 @@ public class PnlEditarProductos extends javax.swing.JPanel {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        JPanel pnlSucursal = new pnlSucursales();
-        Inicio.agregarPanelDerecho(pnlSucursal);
+        JPanel pnl = new pnlProductos();
+        Inicio.agregarPanelDerecho(pnl);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        if (pnlSucursales.estado) {
-            System.out.println("editar "+pnlSucursales.estado);
+        if (pnlProductos.estado) {
+            System.out.println("editar "+pnlProductos.estado);
             try {
-                String numeroSucu = txtNumeroSuc.getText().trim();
+                String código = txtCodigo.getText().trim();
 
                 String ciudad = "";
 
@@ -203,9 +202,9 @@ public class PnlEditarProductos extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlSucursalEd;
+    public static javax.swing.JTextField txtCodigo;
     public static javax.swing.JTextField txtColor;
     public static javax.swing.JTextField txtDescripcion;
-    public static javax.swing.JTextField txtNumeroSuc;
     public static javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
 }

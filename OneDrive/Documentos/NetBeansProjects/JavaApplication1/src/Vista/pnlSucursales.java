@@ -267,13 +267,14 @@ public class pnlSucursales extends javax.swing.JPanel {
                     ciudad = rs.getString(3);
                 }
                 if (ciudad.toUpperCase().trim().equals("SUR")) {
-                    PnlEditarSucursales.rbtQuito.setSelected(true);
-                } else {
                     PnlEditarSucursales.rbtGuayaquil.setSelected(true);
+                } else {
+                    PnlEditarSucursales.rbtQuito.setSelected(true);
                 }
 
             } catch (Exception e) {
-                System.out.println(e);
+                JOptionPane.showMessageDialog(null, e, "Transacción fallida",
+                        JOptionPane.ERROR_MESSAGE);
             }
 
             Inicio.agregarPanelDerecho(pnlEditar);
@@ -285,6 +286,40 @@ public class pnlSucursales extends javax.swing.JPanel {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+        try {
+            int index = tblSucursales.getSelectedRow();
+            registro = (Vector) dtm.getDataVector().elementAt(index);
+            System.out.println(registro.elementAt(2).toString());
+            if (registro.elementAt(2).toString().toUpperCase().trim().equals("NORTE") && pnlInicioSesion.usuario.equals("roberth")) {
+                // TODO add your handling code here:
+
+                String comando = "DELETE FROM sucursal_norte WHERE numerosucur= ?";
+                PreparedStatement pst2 = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
+                pst2.setString(1, registro.elementAt(0).toString());
+
+                pst2.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Eliminado exitosamente", "Transacción exitosa",
+                        JOptionPane.INFORMATION_MESSAGE);
+                limpiarTabla();
+            } else {
+                if ((registro.elementAt(2).toString().toUpperCase().trim().equals("SUR") && pnlInicioSesion.usuario.equals("mauricio"))) {
+                    String comando = "DELETE FROM sucursal_sur WHERE numerosucur = ?";
+                    PreparedStatement pst2 = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
+                    pst2.setString(1, registro.elementAt(0).toString());
+
+                    pst2.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Eliminado exitosamente", "Transacción exitosa",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    limpiarTabla();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se produjo un error", "Transacción fallida",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(PnlEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //LlenarTabla("SELECT * FROM cliente");
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -297,35 +332,7 @@ public class pnlSucursales extends javax.swing.JPanel {
 
     private void tblSucursalesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSucursalesMouseClicked
         // TODO add your handling code here:
-        try {
-            int index = tblSucursales.getSelectedRow();
-            registro = (Vector) dtm.getDataVector().elementAt(index);
-            if (registro.elementAt(1).toString().equals("NORTE") && pnlInicioSesion.usuario.equals("roberth")) {
-                // TODO add your handling code here:
 
-                String comando = "DELETE FROM sucursal_norte WHERE numerosucur= ?";
-                PreparedStatement pst2 = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
-                pst2.setString(1, registro.elementAt(0).toString());
-
-                pst2.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Eliminado exitosamente", "Transacción exitosa",
-                        JOptionPane.INFORMATION_MESSAGE);
-                limpiarTabla();
-            } else {
-
-                String comando = "DELETE FROM sucursal_sur WHERE numerosucur = ?";
-                PreparedStatement pst2 = pnlInicioSesion.conn.getConnSin().prepareStatement(comando);
-                pst2.setString(1, registro.elementAt(0).toString());
-
-                pst2.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Eliminado exitosamente", "Transacción exitosa",
-                        JOptionPane.INFORMATION_MESSAGE);
-                limpiarTabla();
-            }
-        } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(PnlEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //LlenarTabla("SELECT * FROM cliente");
     }//GEN-LAST:event_tblSucursalesMouseClicked
 
     private void agregarPanel(JPanel pnl) {
